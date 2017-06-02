@@ -11,7 +11,6 @@ import java.util.regex.Pattern
 
 import com.typesafe.config._
 import pureconfig.arbitrary._
-import org.scalacheck.Arbitrary._
 import pureconfig.data.Percentage
 import pureconfig.equality._
 import pureconfig.error.{ CannotConvert, EmptyStringFound }
