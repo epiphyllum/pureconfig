@@ -1,7 +1,7 @@
 ### 0.7.3 (unreleased)
 
 - New features
-  - `ConfigReader` and `ConfigWriter` for `java.math.BigDecimal`, `java.math.BigINteger`, 
+  - `ConfigReader` and `ConfigWriter` for `java.math.BigDecimal`, `java.math.BigInteger`, 
     `scala.math.BigDecimal`, and `scala.math.BigInt`
 
 - Bug fixes
