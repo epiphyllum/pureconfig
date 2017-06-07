@@ -1,6 +1,7 @@
 package pureconfig
 
 import java.io.File
+import java.math.{ BigDecimal => JavaBigDecimal, BigInteger }
 import java.net.{ URI, URL }
 import java.nio.file.{ Path, Paths }
 import java.time._
@@ -9,6 +10,7 @@ import java.util.UUID
 import java.util.regex.Pattern
 
 import scala.concurrent.duration.{ Duration, FiniteDuration }
+import scala.math.{ BigDecimal, BigInt }
 import scala.reflect.ClassTag
 import scala.util.matching.Regex
 
@@ -114,6 +116,24 @@ trait DurationReaders {
 }
 
 /**
+ * Trait containing `ConfigReader` instances for Java and Scala arbitrary-precision numeric types.
+ */
+trait NumericReaders {
+
+  implicit val javaBigIntegerReader: ConfigReader[BigInteger] =
+    ConfigReader.fromNonEmptyString[BigInteger](catchReadError(new BigInteger(_)))
+
+  implicit val javaBigDecimalReader: ConfigReader[JavaBigDecimal] =
+    ConfigReader.fromNonEmptyString[JavaBigDecimal](catchReadError(new JavaBigDecimal(_)))
+
+  implicit val scalaBigIntReader: ConfigReader[BigInt] =
+    ConfigReader.fromNonEmptyString[BigInt](catchReadError(BigInt(_)))
+
+  implicit val scalaBigDecimalReader: ConfigReader[BigDecimal] =
+    ConfigReader.fromNonEmptyString[BigDecimal](catchReadError(BigDecimal(_)))
+}
+
+/**
  * Trait containing `ConfigReader` instances for Typesafe config models.
  */
 trait TypesafeConfigReaders {
@@ -155,6 +175,7 @@ trait BasicReaders
   with RegexReaders
   with JavaTimeReaders
   with DurationReaders
+  with NumericReaders
   with TypesafeConfigReaders
 
 object BasicReaders extends BasicReaders

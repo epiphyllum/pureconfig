@@ -1,6 +1,7 @@
 package pureconfig
 
 import java.io.File
+import java.math.{ BigDecimal => JavaBigDecimal, BigInteger }
 import java.nio.file.{ Path, Paths }
 import java.time._
 import java.time.{ Duration => JavaDuration }
@@ -66,4 +67,14 @@ package object gen {
       dateTime <- ConfigurableSuite.localDateTimeArbitrary.arbitrary
     } yield new org.joda.time.DateTime(dateTime.getYear, dateTime.getMonthValue, dateTime.getDayOfMonth,
       dateTime.getHour, dateTime.getMinute, dateTime.getSecond, org.joda.time.DateTimeZone.UTC)
+
+  val genJavaBigDecimal: Gen[JavaBigDecimal] =
+    for {
+      bigDecimal <- Arbitrary.arbBigDecimal.arbitrary
+    } yield bigDecimal.bigDecimal
+
+  val genBigInt: Gen[BigInteger] =
+    for {
+      bigInt <- Arbitrary.arbBigInt.arbitrary
+    } yield bigInt.bigInteger
 }

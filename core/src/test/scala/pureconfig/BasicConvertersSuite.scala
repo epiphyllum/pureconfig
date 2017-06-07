@@ -1,6 +1,7 @@
 package pureconfig
 
 import java.io.File
+import java.math.{ BigDecimal => JavaBigDecimal, BigInteger }
 import java.net.{ URI, URL }
 import java.nio.file.Path
 import java.time._
@@ -10,6 +11,7 @@ import java.util.regex.Pattern
 
 import com.typesafe.config._
 import pureconfig.arbitrary._
+import org.scalacheck.Arbitrary._
 import pureconfig.data.Percentage
 import pureconfig.equality._
 import pureconfig.error.{ CannotConvert, EmptyStringFound }
@@ -66,6 +68,11 @@ class BasicConvertersSuite extends BaseSuite {
   checkArbitrary[Long]
 
   checkArbitrary[Short]
+
+  checkArbitrary[BigInt]
+  checkArbitrary[BigDecimal]
+  checkArbitrary[BigInteger]
+  checkArbitrary[JavaBigDecimal]
 
   checkArbitrary[UUID]
 
