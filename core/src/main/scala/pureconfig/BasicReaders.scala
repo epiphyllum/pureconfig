@@ -141,7 +141,7 @@ trait NumericReaders {
     ConfigReader.fromNonEmptyString[BigInt](catchReadError(BigInt(_)))
 
   implicit val scalaBigDecimalReader: ConfigReader[BigDecimal] =
-    ConfigReader.fromNonEmptyString[BigDecimal](catchReadError(new JavaBigDecimal(_)))
+    ConfigReader.fromNonEmptyString[BigDecimal](catchReadError(s => exact(new JavaBigDecimal(s))))
 }
 
 /**
